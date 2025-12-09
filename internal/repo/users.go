@@ -1,0 +1,35 @@
+package repo
+
+import (
+	"context"
+	"diploma/pkg/db"
+	"fmt"
+)
+
+// ErrUserNotFound возвращается, если пользователь с указанным логином не найден в БД.
+var ErrUserNotFound = fmt.Errorf("user not found")
+
+// GetUserIDByLogin возвращает идентификатор пользователя по его логину.
+func GetUserIDByLogin(ctx context.Context, conn *db.SqlConnection, login string) (int64, error) {
+	const q = `
+		SELECT id
+		FROM logins
+		WHERE login = $1
+		LIMIT 1
+	`
+
+	row, err := db.ExecuteDBQuery(ctx, conn.PgSql, conn.Timeout, q, login)
+	if err != nil {
+		return 0, err
+	}
+	if row == nil {
+		return 0, ErrUserNotFound
+	}
+
+	v := row[0]
+	id, ok := v.(int64)
+	if !ok {
+		return 0, fmt.Errorf("bad type for id: %T", v)
+	}
+	return id, nil
+}
