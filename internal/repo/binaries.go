@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-// UpsertBinary создаёт или обновляет бинарную запись.
-func UpsertBinary(ctx context.Context, conn *db.SqlConnection, rec *models.BinaryRecord) error {
+// InsertUpdateBinary создаёт или обновляет бинарную запись.
+func InsertUpdateBinary(ctx context.Context, conn *db.SqlConnection, rec *models.BinaryRecord) error {
 	if rec == nil {
 		return fmt.Errorf("nil BinaryRecord")
 	}

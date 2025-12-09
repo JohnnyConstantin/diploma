@@ -57,7 +57,7 @@ func (s *PasswordsService) CreateOrUpdatePassword(
 		IsDeleted: false,
 	}
 
-	if err := repo.UpsertPassword(ctx, s.db, rec); err != nil {
+	if err := repo.InsertUpdatePassword(ctx, s.db, rec); err != nil {
 		return nil, err
 	}
 

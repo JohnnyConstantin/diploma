@@ -56,7 +56,7 @@ func (s *BinariesService) CreateOrUpdateBinary(
 		IsDeleted: false,
 	}
 
-	if err := repo.UpsertBinary(ctx, s.DB, rec); err != nil {
+	if err := repo.InsertUpdateBinary(ctx, s.DB, rec); err != nil {
 		return nil, err
 	}
 

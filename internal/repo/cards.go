@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-// UpsertCard создаёт или обновляет запись карты.
-func UpsertCard(ctx context.Context, conn *db.SqlConnection, rec *models.CardRecord) error {
+// InsertUpdateCard создаёт или обновляет запись карты.
+func InsertUpdateCard(ctx context.Context, conn *db.SqlConnection, rec *models.CardRecord) error {
 	if rec == nil {
 		return fmt.Errorf("nil CardRecord")
 	}

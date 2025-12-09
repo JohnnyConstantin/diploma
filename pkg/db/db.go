@@ -1,3 +1,4 @@
+// Package db предоставляет обертку для взаимодействия с pgxpool и отправки запросов
 package db
 
 import (

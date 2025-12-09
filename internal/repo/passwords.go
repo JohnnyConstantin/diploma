@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-// UpsertPassword создаёт или обновляет запись пароля пользователя.
-func UpsertPassword(ctx context.Context, conn *db.SqlConnection, rec *models.PasswordRecord) error {
+// InsertUpdatePassword создаёт или обновляет запись пароля пользователя.
+func InsertUpdatePassword(ctx context.Context, conn *db.SqlConnection, rec *models.PasswordRecord) error {
 	if rec == nil {
 		return fmt.Errorf("nil PasswordRecord")
 	}

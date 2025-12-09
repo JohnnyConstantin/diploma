@@ -1,3 +1,4 @@
+// Package version предоставляет информацию о номере и дате сборки
 package version
 
 import (

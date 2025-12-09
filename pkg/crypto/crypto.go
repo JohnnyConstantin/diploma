@@ -1,3 +1,4 @@
+// Package crypto предоставляет функции для шифрования и дешифровки информации от сервера
 package crypto
 
 import (
@@ -11,7 +12,7 @@ import (
 	"io"
 )
 
-// deriveKey — получает 32-байтный ключ из произвольной строки
+// deriveKey получает 32-байтный ключ из произвольной строки
 func deriveKey(keyStr string) []byte {
 	sum := sha256.Sum256([]byte(keyStr))
 	return sum[:] // 32 байта

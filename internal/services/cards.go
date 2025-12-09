@@ -79,7 +79,7 @@ func (s *CardsService) CreateOrUpdateCard(
 		IsDeleted: false,
 	}
 
-	if err := repo.UpsertCard(ctx, s.db, rec); err != nil {
+	if err := repo.InsertUpdateCard(ctx, s.db, rec); err != nil {
 		return nil, err
 	}
 

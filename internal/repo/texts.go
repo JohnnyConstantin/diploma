@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-// UpsertText создаёт или обновляет текстовую запись.
-func UpsertText(ctx context.Context, conn *db.SqlConnection, rec *models.TextRecord) error {
+// InsertUpdateText создаёт или обновляет текстовую запись.
+func InsertUpdateText(ctx context.Context, conn *db.SqlConnection, rec *models.TextRecord) error {
 	if rec == nil {
 		return fmt.Errorf("nil TextRecord")
 	}

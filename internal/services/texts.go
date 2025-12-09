@@ -56,7 +56,7 @@ func (s *TextsService) CreateOrUpdateText(
 		IsDeleted: false,
 	}
 
-	if err := repo.UpsertText(ctx, s.db, rec); err != nil {
+	if err := repo.InsertUpdateText(ctx, s.db, rec); err != nil {
 		return nil, err
 	}
 

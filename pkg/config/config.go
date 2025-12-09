@@ -1,3 +1,4 @@
+// Package config содержит инициализацию и структуру конфигурационных файлов
 package config
 
 import (
