@@ -10,6 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var MaxBytes = 100 * 1024 * 1024
+
 // PostBinary создаёт или обновляет бинарную запись пользователя.
 func (a *API) PostBinary(c *gin.Context) {
 	login, ok := auth.GetLoginFromCtx(c)
@@ -21,6 +23,12 @@ func (a *API) PostBinary(c *gin.Context) {
 	var req models.BinaryRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
+		return
+	}
+
+	// Ограничение на запись слишком большого размера binary
+	if len(req.Data) > MaxBytes {
+		c.JSON(http.StatusRequestEntityTooLarge, gin.H{"error": "binary data is too large"})
 		return
 	}
 
