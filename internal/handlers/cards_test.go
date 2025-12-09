@@ -15,7 +15,7 @@ func TestPostCard_UnauthorizedWhenNoLoginInContext(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestCardAPI()
 
-	c, w := newTestContext("POST", "/api/v1/cards", []byte(`{}`))
+	c, w := newTestContext(http.MethodPost, "/api/v1/cards", []byte(`{}`))
 
 	api.PostCard(c)
 
@@ -28,7 +28,7 @@ func TestPostCard_BadRequestOnInvalidJSON(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestCardAPI()
 
-	c, w := newTestContext("POST", "/api/v1/cards", []byte(`{invalid json`))
+	c, w := newTestContext(http.MethodPost, "/api/v1/cards", []byte(`{invalid json`))
 
 	c.Set("user_login", "testuser")
 
@@ -43,7 +43,7 @@ func TestGetCardHandler_UnauthorizedWhenNoLogin(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestCardAPI()
 
-	c, w := newTestContext("GET", "/api/v1/cards/some-pan", nil)
+	c, w := newTestContext(http.MethodGet, "/api/v1/cards/some-pan", nil)
 
 	api.GetCardHandler(c)
 

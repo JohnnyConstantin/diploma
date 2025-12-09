@@ -28,7 +28,7 @@ func TestPostPassword_UnauthorizedWhenNoLoginInContext(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestAPI()
 
-	c, w := newTestContext("POST", "/api/v1/passwords", []byte(`{}`))
+	c, w := newTestContext(http.MethodPost, "/api/v1/passwords", []byte(`{}`))
 
 	api.PostPassword(c)
 
@@ -41,7 +41,7 @@ func TestPostPassword_BadRequestOnInvalidJSON(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestAPI()
 
-	c, w := newTestContext("POST", "/api/v1/passwords", []byte(`{invalid json`))
+	c, w := newTestContext(http.MethodPost, "/api/v1/passwords", []byte(`{invalid json`))
 
 	c.Set("user_login", "testuser")
 
@@ -56,7 +56,7 @@ func TestGetPasswordHandler_UnauthorizedWhenNoLogin(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestAPI()
 
-	c, w := newTestContext("GET", "/api/v1/passwords/some-id", nil)
+	c, w := newTestContext(http.MethodGet, "/api/v1/passwords/some-id", nil)
 
 	api.GetPasswordHandler(c)
 

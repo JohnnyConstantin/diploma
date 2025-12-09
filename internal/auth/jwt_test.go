@@ -62,7 +62,7 @@ func TestParseTokenFromCookie(t *testing.T) {
 	if !errors.Is(err, ErrNoCookie) {
 		t.Fatalf("expected ErrNoCookie, got %v", err)
 	}
-	
+
 	token, err := parseTokenFromCookie(req2, cfg)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
@@ -76,13 +76,13 @@ func TestParseTokenFromAuthHeader(t *testing.T) {
 	// неправильный формат
 	req2 := httptest.NewRequest(http.MethodGet, "/", nil)
 	req2.Header.Set("Authorization", "Bearer") // без токена
-	if _, err := parseTokenFromAuthHeader(req2); err != ErrBadAuthHeader {
+	if _, err := parseTokenFromAuthHeader(req2); !errors.Is(err, ErrBadAuthHeader) {
 		t.Fatalf("expected ErrBadAuthHeader, got %v", err)
 	}
 
 	// нет заголовка
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
-	if _, err := parseTokenFromAuthHeader(req); err != ErrNoAuthHeader {
+	if _, err := parseTokenFromAuthHeader(req); !errors.Is(err, ErrNoAuthHeader) {
 		t.Fatalf("expected ErrNoAuthHeader, got %v", err)
 	}
 

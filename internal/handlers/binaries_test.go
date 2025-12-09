@@ -18,7 +18,7 @@ func TestPostBinary_UnauthorizedWhenNoLoginInContext(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestBinaryAPI()
 
-	c, w := newTestContext("POST", "/api/v1/binaries", []byte(`{}`))
+	c, w := newTestContext(http.MethodPost, "/api/v1/binaries", []byte(`{}`))
 
 	api.PostBinary(c)
 
@@ -31,7 +31,7 @@ func TestPostBinary_BadRequestOnInvalidJSON(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestBinaryAPI()
 
-	c, w := newTestContext("POST", "/api/v1/binaries", []byte(`{invalid json`))
+	c, w := newTestContext(http.MethodPost, "/api/v1/binaries", []byte(`{invalid json`))
 
 	c.Set("user_login", "testuser")
 
@@ -62,7 +62,7 @@ func TestPostBinary_TooLargeRequest(t *testing.T) {
 		t.Fatalf("failed to marshal request: %v", err)
 	}
 
-	c, w := newTestContext("POST", "/api/v1/binaries", jsonData)
+	c, w := newTestContext(http.MethodPost, "/api/v1/binaries", jsonData)
 	c.Set("user_login", "testuser")
 
 	api.PostBinary(c)
@@ -75,7 +75,7 @@ func TestGetBinaryHandler_UnauthorizedWhenNoLogin(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestBinaryAPI()
 
-	c, w := newTestContext("GET", "/api/v1/binaries/some-id", nil)
+	c, w := newTestContext(http.MethodGet, "/api/v1/binaries/some-id", nil)
 
 	api.GetBinaryHandler(c)
 

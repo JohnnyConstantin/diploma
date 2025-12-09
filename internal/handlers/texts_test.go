@@ -15,7 +15,7 @@ func TestPostText_UnauthorizedWhenNoLoginInContext(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestTextAPI()
 
-	c, w := newTestContext("POST", "/api/v1/texts", []byte(`{}`))
+	c, w := newTestContext(http.MethodPost, "/api/v1/texts", []byte(`{}`))
 
 	api.PostText(c)
 
@@ -28,7 +28,7 @@ func TestPostText_BadRequestOnInvalidJSON(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestTextAPI()
 
-	c, w := newTestContext("POST", "/api/v1/texts", []byte(`{invalid json`))
+	c, w := newTestContext(http.MethodPost, "/api/v1/texts", []byte(`{invalid json`))
 
 	c.Set("user_login", "testuser")
 
@@ -43,7 +43,7 @@ func TestGetTextHandler_UnauthorizedWhenNoLogin(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	api := newTestTextAPI()
 
-	c, w := newTestContext("GET", "/api/v1/texts/some-id", nil)
+	c, w := newTestContext(http.MethodGet, "/api/v1/texts/some-id", nil)
 
 	api.GetTextHandler(c)
 

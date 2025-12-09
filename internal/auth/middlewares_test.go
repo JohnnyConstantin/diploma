@@ -71,7 +71,6 @@ func TestMiddlewareAuth_ProtectedPathWithValidToken(t *testing.T) {
 	r := gin.New()
 	r.Use(MiddlewareAuth(cfg))
 
-	// эндпоинт, который читает логин из контекста
 	r.GET("/api/v1/passwords", func(c *gin.Context) {
 		loginIfc, exists := c.Get(string(repo.UserLoginKey))
 		if !exists {

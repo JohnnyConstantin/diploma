@@ -22,7 +22,6 @@ func TestNewInitializesGlobals(t *testing.T) {
 	}
 }
 
-// TestWriter_WriteToLog проверяет, что метод WriteToLog не паникует.
 func TestWriter_WriteToLog(t *testing.T) {
 	New(message.InfoLevel)
 

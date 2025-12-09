@@ -57,16 +57,16 @@ func (a *API) GetCardHandler(c *gin.Context) {
 
 	resp, err := a.cardsService.GetCard(c.Request.Context(), login, cardPAN)
 	if err != nil {
-		if errors.Is(err, services.ErrUserNotFound) {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "user not found"})
-			return
-		}
 		if errors.Is(err, services.ErrCardNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": "not found"})
+			c.JSON(http.StatusNotFound, gin.H{"error": "card not found"})
 			return
 		}
 		if errors.Is(err, services.ErrDecryptionFailed) {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "decryption failed"})
+			return
+		}
+		if errors.Is(err, services.ErrUserNotFound) {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "user not found"}) // По идее это внутренняя ошибка, чтобы не перекрывать not found для карты
 			return
 		}
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
